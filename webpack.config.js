@@ -16,13 +16,15 @@ const common = {
     filename: 'bundle.js'
   },
   module: {
-    loaders: {
-      // Test expects a RegExp!
-      test: /\.css$/,
-      loaders: ['style', 'css'],
-      // Include accepts either a path or an array of paths.
-      include: PATHS.app
-    }
+    loaders: [
+      {
+        // Test expects a RegExp!
+        test: /\.css$/,
+        loaders: ['style', 'css'],
+        // Include accepts either a path or an array of paths.
+        include: PATHS.app
+      }
+    ]
   }
 };
 
