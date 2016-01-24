@@ -9,10 +9,20 @@ const PATHS = {
 };
 
 const common = {
+  // Entry accepts a path or an object of entries.
   entry: PATHS.app,
   output: {
     path: PATHS.build,
     filename: 'bundle.js'
+  },
+  module: {
+    loaders: {
+      // Test expects a RegExp!
+      test: /\.css$/,
+      loaders: ['style', 'css'],
+      // Include accepts either a path or an array of paths.
+      include: PATHS.app
+    }
   }
 };
 
