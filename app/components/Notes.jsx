@@ -5,7 +5,7 @@ import Note from './Note.jsx';
 
 class Notes extends React.Component {
   render() {
-    const {notes, onValueClick, onEdit} = this.props;
+    const {notes, onValueClick, onEdit, onDelete} = this.props;
 
     return(
       <ul className="notes">
@@ -18,7 +18,8 @@ class Notes extends React.Component {
               task={note.task}
               editing={note.editing}
               onValueClick={onValueClick.bind(null, note.id)}
-              onEdit={onEdit.bind(null, note.id)} />
+              onEdit={onEdit.bind(null, note.id)}
+              onDelete={onDelete.bind(null, note.id)} />
           </li>
         )}
       </ul>
