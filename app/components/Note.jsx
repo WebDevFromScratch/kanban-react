@@ -13,11 +13,11 @@ class Note extends React.Component {
       onKeyPress={this.checkEnter} />;
   };
 
-  // renderDelete = () => {
-  //   return <button
-  //     className="delete-note"
-  //     onClick={this.props.onDelete}>x</button>
-  // };
+  renderDelete = () => {
+    return <button
+      className="delete-note"
+      onClick={this.props.onDelete}>x</button>
+  };
 
   checkEnter = (e) => {
     if(e.key === 'Enter') {
@@ -44,12 +44,10 @@ class Note extends React.Component {
   }
 
   renderNote = () => {
-    // const onDelete = this.props.onDelete;
-
     return (
       <div onClick={this.props.onValueClick}>
         <span className="task">{this.props.task}</span>
-        {/*{onDelete ? this.renderDelete() : null}*/}
+        {this.renderDelete()}
       </div>
     );
   };
