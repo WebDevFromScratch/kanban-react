@@ -9,7 +9,10 @@ class App extends React.Component {
     return(
       <div>
         <AddNote />
-        <Notes notes={this.props.notes} />
+        <Notes
+          notes={this.props.notes}
+          onValueClick={id => this.props.updateNote({id, editing: true})}
+          onEdit={(id, task) => this.props.updateNote({id, task, editing: false})} />
       </div>
     );
   }
@@ -21,6 +24,17 @@ const mapStateToProps = (state) => {
   }
 }
 
-App = connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateNote: (note) => {
+      dispatch({
+        type: 'UPDATE_NOTE',
+        ...note
+      })
+    }
+  }
+}
+
+App = connect(mapStateToProps, mapDispatchToProps)(App);
 
 export default App;
