@@ -1,3 +1,5 @@
+// This was wrong and what's more, is in the wrong place. Remove as a next step.
+
 import uuid from 'node-uuid';
 
 const initialState = [];
