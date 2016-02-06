@@ -1,72 +1,55 @@
-import uuid from 'node-uuid';
 import React from 'react';
+import { connect } from 'react-redux';
+import uuid from 'node-uuid';
 
+import AddNote from './AddNote.jsx';
 import Notes from './Notes.jsx';
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      notes: [
-        {
-          id: uuid.v4(),
-          task: 'Learn Webpack'
-        },
-        {
-          id: uuid.v4(),
-          task: 'Learn React'
-        },
-        {
-          id: uuid.v4(),
-          task: 'Do laundry'
-        }
-      ]
-    };
-  }
-
-  addNote = () => {
-    this.setState({
-      notes: [...this.state.notes, {id: uuid.v4(), task: 'New task'}]
-
-      // The above syntax translates to:
-      // notes: this.state.notes.concat([{
-      //   id: uuid.v4(),
-      //   task: 'New task'
-      // }])
-    });
-  };
-
-  editNote = (id, task) => {
-    const notes = this.state.notes.map(note => {
-      if (note.id === id && task) {
-        note.task = task;
-      }
-
-      return note;
-    });
-
-    this.setState({notes});
-  };
-
-  deleteNote = (id) => {
-    this.setState({
-      notes: this.state.notes.filter(note => note.id !== id)
-    });
-  };
-
+class App extends React.Component {
   render() {
-    const notes = this.state.notes;
-
-    return (
+    return(
       <div>
-        <button className="add-note" onClick={this.addNote}>+</button>
-
+        <AddNote onButtonClick={this.props.createNote} />
         <Notes
-          notes={notes}
-          onEdit={this.editNote}
-          onDelete={this.deleteNote} />
+          notes={this.props.notes}
+          onValueClick={id => this.props.updateNote({id, editing: true})}
+          onEdit={(id, task) => this.props.updateNote({id, task, editing: false})}
+          onDelete={id => this.props.deleteNote({id})}/> {/*I can't quite grasp how this works exactly...*/}
       </div>
-    )
+    );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    notes: state
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createNote: () => {
+      dispatch({
+        type: 'CREATE_NOTE',
+        id: uuid.v4(),
+        task: 'New item'
+      })
+    },
+    updateNote: (note) => {
+      dispatch({
+        type: 'UPDATE_NOTE',
+        ...note
+      })
+    },
+    deleteNote: (note) => {
+      dispatch({
+        type: 'DELETE_NOTE',
+        id: note.id
+      })
+    }
+  }
+}
+
+App = connect(mapStateToProps, mapDispatchToProps)(App);
+
+export default App;
