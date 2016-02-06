@@ -1,27 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
-let nextItemId = 0;
+import AddNote from './AddNote.jsx';
+import Notes from './Notes.jsx';
+
 class App extends React.Component {
   render() {
     return(
       <div>
-        <button onClick={() => {
-          this.props.dispatch({
-            type: 'CREATE_NOTE',
-            id: nextItemId++,
-            task: 'New item'
-          })
-        }}>
-          +
-        </button>
-        <ul>
-          {this.props.notes.map(note =>
-            <li key={note.id}>
-              {note.task}
-            </li>
-          )}
-        </ul>
+        <AddNote />
+        <Notes notes={this.props.notes} />
       </div>
     );
   }
@@ -32,9 +20,6 @@ const mapStateToProps = (state) => {
     notes: state
   }
 }
-
-// const mapDispatchToProps = () => {
-// }
 
 App = connect(mapStateToProps)(App);
 
