@@ -1,27 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux'
 
-export default class Note extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      editing: false
-    };
-  }
-
-  renderNote = () => {
-    const onDelete = this.props.onDelete;
-
-    return (
-      <div onClick={this.edit}>
-        <span className="task">{this.props.task}</span>
-        {onDelete ? this.renderDelete() : null}
-      </div>
-    );
-
-    // return <div onClick={this.edit}>{this.props.task}</div>
-  };
-
+class Note extends React.Component {
   renderEdit = () => {
     return <input type="text"
       ref={
@@ -33,17 +13,11 @@ export default class Note extends React.Component {
       onKeyPress={this.checkEnter} />;
   };
 
-  renderDelete = () => {
-    return <button
-      className="delete-note"
-      onClick={this.props.onDelete}>x</button>
-  };
-
-  edit = () => {
-    this.setState({
-      editing: true
-    });
-  };
+  // renderDelete = () => {
+  //   return <button
+  //     className="delete-note"
+  //     onClick={this.props.onDelete}>x</button>
+  // };
 
   checkEnter = (e) => {
     if(e.key === 'Enter') {
@@ -52,30 +26,34 @@ export default class Note extends React.Component {
   };
 
   finishEdit = (e) => {
-    // `Note` will trigger an optional `onEdit` callback once it
-    // has a new value. We will use this to communicate the change to
-    // `App`.
-    //
-    // A smarter way to deal with the default value would be to set
-    // it through `defaultProps`.
-    //
-    // See *Typing with React* chapter for more information.
     const value = e.target.value;
 
-    if (this.props.onEdit && value.trim) {
-      this.props.onEdit(value);
-
-      this.setState({
-        editing: false
-      });
+    if (this.props.onEdit) {
+      this.props.onEdit(value.trim());
     }
   };
 
   render() {
-    if (this.state.editing) {
-      return this.renderEdit();
-    }
+    const {editing, onEdit, onValueClick, ...props} = this.props;
 
-    return this.renderNote();
+    return(
+      <div {...props}>
+        {editing ? this.renderEdit() : this.renderNote()}
+      </div>
+    )
   }
+
+  renderNote = () => {
+    // const onDelete = this.props.onDelete;
+
+    return (
+      <div onClick={this.props.onValueClick}>
+        <span className="task">{this.props.task}</span>
+        {/*{onDelete ? this.renderDelete() : null}*/}
+      </div>
+    );
+  };
 }
+Note = connect()(Note);
+
+export default Note;
