@@ -13,7 +13,8 @@ class App extends React.Component {
         <Notes
           notes={this.props.notes}
           onValueClick={id => this.props.updateNote({id, editing: true})}
-          onEdit={(id, task) => this.props.updateNote({id, task, editing: false})} />
+          onEdit={(id, task) => this.props.updateNote({id, task, editing: false})}
+          onDelete={id => this.props.deleteNote({id})}/> {/*I can't quite grasp how this works exactly...*/}
       </div>
     );
   }
@@ -38,6 +39,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: 'UPDATE_NOTE',
         ...note
+      })
+    },
+    deleteNote: (note) => {
+      dispatch({
+        type: 'DELETE_NOTE',
+        id: note.id
       })
     }
   }
