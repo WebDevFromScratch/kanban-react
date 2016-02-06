@@ -5,13 +5,20 @@ import Note from './Note.jsx';
 
 class Notes extends React.Component {
   render() {
-    const notes = this.props.notes;
+    const {notes, onValueClick, onEdit} = this.props;
 
     return(
       <ul className="notes">
         {notes.map(note =>
-          <li className="note" key={note.id}>
-            <Note task={note.task} />
+          <li
+            className="note"
+            key={note.id}
+            id={note.id}>
+            <Note
+              task={note.task}
+              editing={note.editing}
+              onValueClick={onValueClick.bind(null, note.id)}
+              onEdit={onEdit.bind(null, note.id)} />
           </li>
         )}
       </ul>
