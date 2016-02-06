@@ -43,7 +43,16 @@ const notes = (state = [], action) => {
     case 'DELETE_NOTE':
       return [
         state.filter(note => note.id !== action.id)
-      ]
+      ];
+
+    case 'UPDATE_NOTE':
+      return state.map((note) => {
+        if(note.id === action.id) {
+          return Object.assign({}, note, action);
+        }
+
+        return note;
+      });
     default:
       return state;
   }
