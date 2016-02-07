@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import uuid from 'node-uuid';
 
 import AddNote from './AddNote.jsx';
 import Notes from './Notes.jsx';
+import * as actions from '../actions/notes';
 
 class App extends React.Component {
   render() {
@@ -26,29 +26,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    createNote: () => {
-      dispatch({
-        type: 'CREATE_NOTE',
-        id: uuid.v4(),
-        task: 'New item'
-      })
-    },
-    updateNote: (note) => {
-      dispatch({
-        type: 'UPDATE_NOTE',
-        ...note
-      })
-    },
-    deleteNote: (note) => {
-      dispatch({
-        type: 'DELETE_NOTE',
-        id: note.id
-      })
-    }
-  }
-}
+const mapDispatchToProps = actions;
 
 App = connect(mapStateToProps, mapDispatchToProps)(App);
 
