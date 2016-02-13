@@ -13,7 +13,8 @@ class App extends React.Component {
     return(
       <div>
         <button className="add-lane" onClick={this.props.createLane}>+</button>
-        <Lanes />
+        <Lanes
+          lanes={this.props.lanes} />
       </div>
     )
 
