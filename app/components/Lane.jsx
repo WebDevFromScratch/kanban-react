@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import AddNote from './AddNote.jsx';
 import Notes from './Notes.jsx';
-import * as actions from '../actions/notes';
+import * as noteActions from '../actions/notes';
 
 class Lane extends React.Component {
   render() {
@@ -23,7 +23,6 @@ class Lane extends React.Component {
   }
 }
 
-const mapDispatchToProps = actions;
-Lane = connect(null, mapDispatchToProps)(Lane);
+Lane = connect(null, noteActions)(Lane);
 
 export default Lane;
