@@ -2,40 +2,71 @@ import './main.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
 import App from './components/App.jsx';
 import * as types from './actions/notes';
 
 // reducer
-const notes = (state = [], action) => {
+import * as laneTypes from './actions/lanes';
+
+const lanes = (state = [], action) => {
   switch(action.type) {
-    case types.CREATE_NOTE:
+    case laneTypes.CREATE_LANE:
       return [
         ...state,
         {
           id: action.id,
-          task: action.task
+          name: action.name
         }
       ];
-    case types.DELETE_NOTE:
-      return state.filter(note => note.id !== action.id)
-
-    case types.UPDATE_NOTE:
-      return state.map((note) => {
-        if(note.id === action.id) {
-          return Object.assign({}, note, action);
-        }
-
-        return note;
-      });
     default:
       return state;
   }
 }
 
-let store = createStore(notes);
+const note = (state, action) => {
+  switch (action.type) {
+    case types.CREATE_NOTE:
+      return {
+        id: action.id,
+        task: action.task
+      };
+    case types.UPDATE_NOTE:
+      if(state.id === action.id) {
+        return Object.assign({}, state, action);
+      }
+
+      return state;
+    default:
+      return state;
+  }
+}
+
+const notes = (state = [], action) => {
+  switch(action.type) {
+    case types.CREATE_NOTE:
+      return [
+        ...state,
+        note(undefined, action)
+      ];
+    case types.DELETE_NOTE:
+      return state.filter(note => note.id !== action.id)
+
+    case types.UPDATE_NOTE:
+      return state.map(n => note(n, action));
+    default:
+      return state;
+  }
+}
+
+let kanbanApp = combineReducers({
+  lanes,
+  notes
+})
+
+let store = createStore(kanbanApp);
 
 const render = () =>{
   ReactDOM.render(
