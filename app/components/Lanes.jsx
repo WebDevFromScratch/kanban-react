@@ -5,13 +5,13 @@ import Lane from './Lane.jsx';
 
 class Lanes extends React.Component {
   render() {
-    const {lanes, notes} = this.props;
+    const lanes = this.props.lanes;
 
     return(
       <div className="lanes">
         {lanes.map(lane =>
           <li key={lane.id}>
-            <Lane lane={lane} notes={notes} />
+            <Lane lane={lane} />
           </li>
         )}
       </div>
