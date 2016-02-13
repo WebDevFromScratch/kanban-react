@@ -16,7 +16,7 @@ class App extends React.Component {
           notes={this.props.notes}
           onValueClick={id => this.props.updateNote({id, editing: true})}
           onEdit={(id, task) => this.props.updateNote({id, task, editing: false})}
-          onDelete={id => this.props.deleteNote({id})}/> {/*I can't quite grasp how this works exactly...*/} />
+          onDelete={id => this.props.deleteNote({id})}/> {/*I can't quite grasp how this works exactly...*/}
       </div>
     )
   }
