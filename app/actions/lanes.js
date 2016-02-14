@@ -9,6 +9,15 @@ export function createLane() {
   }
 }
 
+export const UPDATE_LANE = 'UPDATE_LANE';
+export function updateLane(lane) {
+  debugger;
+  return {
+    type: UPDATE_LANE,
+    ...lane
+  }
+}
+
 export const DELETE_LANE = 'DELETE_LANE';
 export function deleteLane(laneId) {
   return {

@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Note from './Note.jsx';
+// import Note from './Note.jsx';
+import Editable from './Editable.jsx';
 
 class Notes extends React.Component {
   render() {
@@ -14,8 +15,8 @@ class Notes extends React.Component {
             className="note"
             key={note.id}
             id={note.id}>
-            <Note
-              task={note.task}
+            <Editable
+              value={note.task}
               editing={note.editing}
               onValueClick={onValueClick.bind(null, note.id)}
               onEdit={onEdit.bind(null, note.id)}

@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import AddNote from './AddNote.jsx';
 import Notes from './Notes.jsx';
+import Editable from './Editable.jsx';
 import * as noteActions from '../actions/notes';
 import * as laneActions from '../actions/lanes';
 
@@ -17,8 +18,11 @@ class Lane extends React.Component {
 
     return(
       <div className="lane">
-        {this.props.lane.name}
-        <button onClick={() => props.deleteLane(laneId)}>x</button>
+        <Editable
+          value={lane.name}
+          editing={lane.editing}
+          onValueClick={this.editLane.bind(null, lane)} />
+        {/*<button onClick={() => props.deleteLane(laneId)}>x</button>*/}
         <AddNote onButtonClick={this.addNote.bind(this, laneId)} />
         <Notes
           notes={laneNotes}
@@ -27,6 +31,19 @@ class Lane extends React.Component {
           onDelete={id => this.removeNote(laneId, id)} />
       </div>
     )
+  }
+
+  editLane(lane) {
+    // debugger;
+    const laneId = lane.id;
+
+    laneActions.updateLane({id: laneId, editing: true})
+
+    console.log(`edit lane ${laneId}`);
+  }
+
+  activateNoteEdit(id) {
+    console.log(`activate note ${id} edit`);
   }
 
   addNote(laneId, e) {
@@ -40,6 +57,12 @@ class Lane extends React.Component {
     this.props.detachFromLane(laneId, noteId);
     this.props.deleteNote(noteId);
   }
+
+  editName = (name) => {
+    const laneId = this.props.lane.id;
+
+    console.log(`edit lane ${laneId} name using ${name}`);
+  };
 }
 
 const mapStateToProps = (state) => {

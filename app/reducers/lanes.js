@@ -1,16 +1,35 @@
 import * as types from '../actions/lanes';
 
+const lane = (state, action) => {
+  switch (action.type) {
+    case types.CREATE_LANE:
+      return {
+        id: action.id,
+        name: action.name,
+        notes: []
+      };
+    case types.UPDATE_LANE:
+      debugger;
+      if(state.id === action.id) {
+        return Object.assign({}, state, action);
+      }
+
+      return state;
+    default:
+      return state;
+  }
+}
+
 const lanes = (state = [], action) => {
   switch(action.type) {
     case types.CREATE_LANE:
       return [
         ...state,
-        {
-          id: action.id,
-          name: action.name,
-          notes: []
-        }
+        lane(undefined, action)
       ];
+    case types.UPDATE_LANE:
+    debugger;
+      return state.map(l => lane(l, action));
     case types.DELETE_LANE:
       return state.filter(lane => lane.id !== action.id);
     case types.ATTACH_TO_LANE:
