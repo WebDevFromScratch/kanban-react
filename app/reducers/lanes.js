@@ -11,6 +11,8 @@ const lanes = (state = [], action) => {
           notes: []
         }
       ];
+    case types.DELETE_LANE:
+      return state.filter(lane => lane.id !== action.id);
     case types.ATTACH_TO_LANE:
       const laneId = action.laneId;
       const noteId = action.noteId;

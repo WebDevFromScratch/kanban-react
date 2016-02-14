@@ -18,6 +18,7 @@ class Lane extends React.Component {
     return(
       <div className="lane">
         {this.props.lane.name}
+        <button onClick={() => props.deleteLane(laneId)}>x</button>
         <AddNote onButtonClick={this.addNote.bind(this, laneId)} />
         <Notes
           notes={laneNotes}

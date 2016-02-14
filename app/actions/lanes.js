@@ -9,6 +9,14 @@ export function createLane() {
   }
 }
 
+export const DELETE_LANE = 'DELETE_LANE';
+export function deleteLane(laneId) {
+  return {
+    type: DELETE_LANE,
+    id: laneId
+  }
+}
+
 export const ATTACH_TO_LANE = 'ATTACH_TO_LANE';
 export function attachToLane(laneId, noteId) {
   return {
