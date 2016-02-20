@@ -18,16 +18,14 @@ class Lane extends React.Component {
 
     return(
       <div className="lane">
-        <ul className="notes">
-          <li className="note" key={laneId} id={laneId}>
-            <Editable
-              onValueClick={() => this.props.updateLane({id: laneId, editing: true})}
-              value={lane.name}
-              editing={lane.editing}
-              onEdit={name => this.props.updateLane({id: laneId, name, editing: false})}
-              onDelete={() => this.props.deleteLane(laneId)} />
-          </li>
-        </ul>
+        <div key={laneId} id={laneId}>
+          <Editable
+            onValueClick={() => this.props.updateLane({id: laneId, editing: true})}
+            value={lane.name}
+            editing={lane.editing}
+            onEdit={name => this.props.updateLane({id: laneId, name, editing: false})}
+            onDelete={() => this.props.deleteLane(laneId)} />
+        </div>
         <AddNote onButtonClick={this.addNote.bind(this, laneId)} />
         <Notes
           notes={laneNotes}
