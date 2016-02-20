@@ -9,7 +9,6 @@ const lane = (state, action) => {
         notes: []
       };
     case types.UPDATE_LANE:
-      debugger;
       if(state.id === action.id) {
         return Object.assign({}, state, action);
       }
@@ -22,14 +21,13 @@ const lane = (state, action) => {
 
 const lanes = (state = [], action) => {
   switch(action.type) {
+    case types.UPDATE_LANE:
+      return state.map(l => lane(l, action));
     case types.CREATE_LANE:
       return [
         ...state,
         lane(undefined, action)
       ];
-    case types.UPDATE_LANE:
-    debugger;
-      return state.map(l => lane(l, action));
     case types.DELETE_LANE:
       return state.filter(lane => lane.id !== action.id);
     case types.ATTACH_TO_LANE:
