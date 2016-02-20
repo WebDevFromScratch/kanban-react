@@ -10,9 +10,7 @@ class Lanes extends React.Component {
     return(
       <div className="lanes">
         {lanes.map(lane =>
-          <li key={lane.id}>
-            <Lane lane={lane} />
-          </li>
+          <Lane lane={lane} key={lane.id} />
         )}
       </div>
     )
