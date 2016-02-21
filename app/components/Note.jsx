@@ -1,5 +1,5 @@
 import React from 'react';
-import { DragSource } from 'react-dnd';
+import { DragSource, DropTarget } from 'react-dnd';
 import ItemTypes from '../constants/itemTypes';
 
 const noteSource = {
@@ -10,17 +10,29 @@ const noteSource = {
   }
 }
 
-@DragSource(ItemTypes.NOTE, noteSource, (connect) => ({ // maybe re-name the connect?
+const noteTarget = {
+  hover(targetProps, monitor) {
+    const sourceProps = monitor.getItem();
+
+    console.log('dragging note', sourceProps, targetProps);
+  }
+}
+
+@DragSource(ItemTypes.NOTE, noteSource, (connect) => ({
   connectDragSource: connect.dragSource()
+}))
+
+@DropTarget(ItemTypes.NOTE, noteTarget, (connect) => ({
+  connectDropTarget: connect.dropTarget()
 }))
 
 class Note extends React.Component {
   render() {
-    const { connectDragSource, id, onMove, ...props } = this.props;
+    const { connectDragSource, connectDropTarget, id, onMove, ...props } = this.props;
 
-    return connectDragSource(
+    return connectDragSource(connectDropTarget(
       <li {...props}>{this.props.children}</li>
-    );
+    ));
   }
 }
 
