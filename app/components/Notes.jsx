@@ -14,7 +14,10 @@ class Notes extends React.Component {
           <Note
             className="note"
             key={note.id}
-            id={note.id}>
+            id={note.id}
+            onMove={({sourceId, targetId}) =>
+              console.log(`source: ${sourceId}, target: ${targetId}`)
+          }>
             <Editable
               value={note.task}
               editing={note.editing}
