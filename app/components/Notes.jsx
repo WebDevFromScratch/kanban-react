@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-// import Note from './Note.jsx';
+import Note from './Note.jsx';
 import Editable from './Editable.jsx';
 
 class Notes extends React.Component {
@@ -11,7 +11,7 @@ class Notes extends React.Component {
     return(
       <ul className="notes">
         {notes.map(note =>
-          <li
+          <Note
             className="note"
             key={note.id}
             id={note.id}>
@@ -21,7 +21,7 @@ class Notes extends React.Component {
               onValueClick={onValueClick.bind(null, note.id)}
               onEdit={onEdit.bind(null, note.id)}
               onDelete={onDelete.bind(null, note.id)} />
-          </li>
+          </Note>
         )}
       </ul>
     );
