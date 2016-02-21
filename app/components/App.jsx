@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import Lanes from './Lanes.jsx';
 import * as laneActions from '../actions/lanes';
 
+@DragDropContext(HTML5Backend)
 class App extends React.Component {
   render() {
     return(
